@@ -1,0 +1,21 @@
+PATH
+  remote: .
+  specs:
+    process_memory (0.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rake (10.4.2)
+    rake-compiler (0.9.5)
+      rake
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  process_memory!
+  rake-compiler (~> 0.9)
+
+BUNDLED WITH
+   1.10.6
