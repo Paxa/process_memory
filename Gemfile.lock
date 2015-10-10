@@ -6,16 +6,16 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    minitest (5.8.1)
     rake (10.4.2)
-    rake-compiler (0.9.5)
-      rake
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest (~> 5.8)
   process_memory!
-  rake-compiler (~> 0.9)
+  rake
 
 BUNDLED WITH
    1.10.6

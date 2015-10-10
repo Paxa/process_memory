@@ -19,5 +19,5 @@ Gem::Specification.new do |gem|
   gem.require_path = 'lib'
 
   gem.specification_version = 3
-  gem.add_development_dependency "rake-compiler", "~> 0.9"
+  gem.add_development_dependency "minitest", "~> 5.8"
 end

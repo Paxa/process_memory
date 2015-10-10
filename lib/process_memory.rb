@@ -1,4 +1,4 @@
-require 'process_memory/process_memory_ext'
+require File.expand_path('../ext/process_memory/process_memory_ext', File.dirname(__FILE__))
 
 module ProcessMemory
   extend self
