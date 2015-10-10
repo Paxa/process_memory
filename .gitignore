@@ -1,4 +1,5 @@
-ext/process_memory_ext.bundle
-ext/process_memory_ext.o
-ext/process_memory_ext.so
-ext/Makefile
+lib/process_memory/process_memory_ext.bundle
+lib/process_memory/process_memory_ext.o
+lib/process_memory/process_memory_ext.so
+tmp
+process_memory-*.gem

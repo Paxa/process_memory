@@ -1,15 +1,14 @@
 require 'rake/testtask'
+require "rake/extensiontask"
 
-Rake::TestTask.new do |t|
-  t.test_files = Dir.glob('spec/**/*_spec.rb')
+Rake::ExtensionTask.new "process_memory" do |ext|
+  ext.name = "process_memory_ext"
+  ext.lib_dir = "lib/process_memory"
 end
 
-task(default: :test)
-
-task :compile do
-  %x{
-    cd ext
-    ruby ./extconf.rb
-    make
-  }
+Rake::TestTask.new do |test|
+  test.test_files = Dir.glob('spec/**/*_spec.rb')
 end
+
+task :test => :compile
+task :default => :test

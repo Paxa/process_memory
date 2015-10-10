@@ -47,7 +47,7 @@ describe ProcessMemory do
 
   it "should return current memory usage in megabites" do
     current_mb = (ProcessMemory.current / 1024.0 / 1024.0).round(3)
-    assert_equal ProcessMemory.human_size, "#{current_mb}MB"
+    assert_equal ProcessMemory.human_size.to_f, current_mb
   end
 
 end

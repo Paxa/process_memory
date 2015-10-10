@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.summary = "Getting process memory"
   gem.homepage = 'http://github.com/paxa/process_memory'
 
-  gem.extensions = ["ext/extconf.rb"]
+  gem.extensions = Dir["ext/**/extconf.rb"]
 
   #gem.extra_rdoc_files = ['CHANGELOG', 'LICENSE', 'README.markdown']
   gem.files = Dir['lib/**/*', 'ext/**/{*.c,*.h,*.rb}', 'CHANGELOG', 'LICENSE', 'Rakefile', 'README.md']
@@ -19,4 +19,5 @@ Gem::Specification.new do |gem|
   gem.require_path = 'lib'
 
   gem.specification_version = 3
+  gem.add_development_dependency "rake-compiler", "~> 0.9"
 end
