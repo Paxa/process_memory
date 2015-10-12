@@ -4,8 +4,11 @@ module ProcessMemory
   extend self
 
   def current
-    return ProcessMemoryExt.get_current_rss
-    ProcessMemoryExt.get_peak_rss
+    ProcessMemoryExt.get_current_rss
+  end
+
+  def current_mb
+    ProcessMemoryExt.get_current_rss / (1024 * 1024.0)
   end
 
   def peak
