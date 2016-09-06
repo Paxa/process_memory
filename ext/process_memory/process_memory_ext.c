@@ -31,7 +31,7 @@ static VALUE rb_get_process_rss() {
       return INT2NUM(0);
     }
 
-    if (fscanf(file, "%*s%ld", &rss) != 1) {
+    if (fscanf(file, "%*s%Ld", &rss) != 1) {
       fclose(file);
       return INT2NUM(0);    /* Can't read? */
     }
