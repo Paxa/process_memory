@@ -16,7 +16,7 @@ describe ProcessMemory do
   end
 
   def parse_ps_cmd
-    pid, size = `ps ax -o pid,rss | grep -E "^[[:space:]]*#{$$}"`.strip.split.map(&:to_i)
+    _, size = `ps ax -o pid,rss | grep -E "^[[:space:]]*#{$$}"`.strip.split.map(&:to_i)
     size * 1024
   end
 

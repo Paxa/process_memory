@@ -8,7 +8,7 @@ module ProcessMemory
   end
 
   def current_mb
-    ProcessMemoryExt.get_current_rss / (1024 * 1024.0)
+    current / (1024 * 1024.0)
   end
 
   def peak

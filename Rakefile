@@ -1,6 +1,7 @@
 require 'rake/testtask'
 #require "rake/extensiontask"
 
+desc "Compile native extension"
 task :compile do
   %x{
     cd ext/process_memory

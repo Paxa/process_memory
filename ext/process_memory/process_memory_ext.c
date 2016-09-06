@@ -24,7 +24,7 @@ static VALUE rb_get_process_rss() {
 
   // For Linux
   #elif defined(__linux__) || defined(__linux) || defined(linux) || defined(__gnu_linux__)
-    long rss = 0;
+    long long rss = 0;
     FILE* file = fopen("/proc/self/statm", "r");
 
     if (file == NULL) { /* Can't open? */
@@ -57,7 +57,7 @@ rb_get_process_peak_rss()
   #if defined(__APPLE__) && defined(__MACH__)
     return INT2NUM(r_usage.ru_maxrss);
   #else
-    return INT2NUM(r_usage.ru_maxrss * 1024L);
+    return INT2NUM(r_usage.ru_maxrss * 1024LL);
   #endif
 }
 

@@ -6,6 +6,7 @@ lib/process_memory/process_memory_ext.so
 ext/process_memory/process_memory_ext.bundle
 ext/process_memory/process_memory_ext.o
 ext/process_memory/process_memory_ext.so
+ext/process_memory/Makefile
 
 tmp
 process_memory-*.gem
