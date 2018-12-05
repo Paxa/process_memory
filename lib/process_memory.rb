@@ -20,22 +20,23 @@ module ProcessMemory
   end
 
   def bites_to_human(num)
-    "%.3fMB" % (num / (1024 * 1024.0))
+    "%.3f MB" % (num / (1024 * 1024.0))
   end
 
-  def start_recording(resolution = 0.1)
-    recorder = Recorder.new(resolution)
+  def start_recording(resolution = 0.1, &block)
+    recorder = Recorder.new(resolution, &block)
     recorder.start
     recorder
   end
 
   class Recorder
-    def initialize(resolution = 0.1)
+    def initialize(resolution = 0.1, &block)
       @resolution = resolution
       #@semaphore = Mutex.new
       @tracks = []
       @running = false
       @initial_memory = ProcessMemory.current
+      @callback = block
     end
 
     def start
@@ -46,6 +47,18 @@ module ProcessMemory
       @runner_thread = Thread.new do
         while true
           data << [Time.now, ProcessMemory.current]
+          if @callback
+            begin
+              @callback.call(
+                time: data.last[0].to_f - @start_time.to_f,
+                memory: data.last[1] - @initial_memory,
+                memory_human: ProcessMemory.bites_to_human(data.last[1] - @initial_memory)
+              )
+            rescue => error
+              puts "#{error.class}: #{error.message}"
+              puts error.backtrace
+            end
+          end
           sleep(timeout)
         end
       end
