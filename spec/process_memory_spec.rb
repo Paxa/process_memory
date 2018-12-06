@@ -16,7 +16,14 @@ describe ProcessMemory do
   end
 
   def parse_ps_cmd
-    _, size = `ps ax -o pid,rss | grep -E "^[[:space:]]*#{$$}"`.strip.split.map(&:to_i)
+    ps_res = `ps ax -o pid,rss | grep -E "^[[:space:]]*#{$$}"`
+    _, size = ps_res.strip.split.map(&:to_f)
+
+    # some systems like alpine print memory in megabytes
+    if ps_res =~ /\dm$/
+      size *= 1024
+    end
+
     size * 1024
   end
 
@@ -24,8 +31,11 @@ describe ProcessMemory do
     ps_result = parse_ps_cmd
     gem_result = ProcessMemory.current
 
-    # should be almost same, within 1%
-    assert_in_delta ps_result, gem_result, ps_result / 100.0
+    #puts File.read("/proc/self/statm")
+    #puts File.read("/proc/self/status")
+
+    # should be almost same, within 2%
+    assert_in_delta(ps_result, gem_result, ps_result / 50.0)
   end
 
   it "should return current process memory when it's growing" do
@@ -33,21 +43,21 @@ describe ProcessMemory do
     ps_result = parse_ps_cmd
     gem_result = ProcessMemory.current
 
-    # should be almost same, within 1%
-    assert_in_delta ps_result, gem_result, ps_result / 100.0
+    # should be almost same, within 2%
+    assert_in_delta(ps_result, gem_result, ps_result / 50.0)
   end
 
   it "should convert bites to megabites" do
-    assert_equal ProcessMemory.bites_to_human(100), "0.000MB"
-    assert_equal ProcessMemory.bites_to_human(1024), "0.001MB"
-    assert_equal ProcessMemory.bites_to_human(1024 * 1024), "1.000MB"
-    assert_equal ProcessMemory.bites_to_human(1024 * 1024 * 123.456), "123.456MB"
-    assert_equal ProcessMemory.bites_to_human(1024 * 1024 * 1024 * 4), "4096.000MB"
+    assert_equal ProcessMemory.bites_to_human(100), "0.000 MB"
+    assert_equal ProcessMemory.bites_to_human(1024), "0.001 MB"
+    assert_equal ProcessMemory.bites_to_human(1024 * 1024), "1.000 MB"
+    assert_equal ProcessMemory.bites_to_human(1024 * 1024 * 123.456), "123.456 MB"
+    assert_equal ProcessMemory.bites_to_human(1024 * 1024 * 1024 * 4), "4096.000 MB"
   end
 
   it "should return current memory usage in megabites" do
     current_mb = (ProcessMemory.current / 1024.0 / 1024.0).round(3)
-    assert_in_delta ProcessMemory.human_size.to_f, current_mb, current_mb / 100.0
+    assert_in_delta(ProcessMemory.human_size.to_f, current_mb, current_mb / 50.0)
   end
 
 end

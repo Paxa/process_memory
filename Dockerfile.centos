@@ -1,0 +1,17 @@
+FROM centos/ruby-25-centos7
+
+USER 0
+
+RUN bash -c "gem install bundler"
+
+WORKDIR /opt/app
+
+ADD Gemfile Gemfile.lock process_memory.gemspec /opt/app/
+
+RUN bash -c "bundle"
+
+ADD . /opt/app/
+
+RUN bash -c "rake compile"
+
+RUN bash -c "rake test"

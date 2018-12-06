@@ -1,0 +1,18 @@
+FROM alpine:edge
+
+RUN apk update && apk upgrade && \
+    apk add bash make gcc g++ musl-dev tzdata
+
+RUN apk add ruby ruby-dev ruby-io-console ruby-irb ruby-etc ruby-rake ruby-bundler
+
+WORKDIR /opt/app
+
+ADD Gemfile Gemfile.lock process_memory.gemspec /opt/app/
+
+RUN bundle
+
+ADD . /opt/app/
+
+RUN rake compile
+
+RUN rake test

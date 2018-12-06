@@ -1,0 +1,9 @@
+lib/process_memory/process_memory_ext.bundle
+lib/process_memory/process_memory_ext.o
+lib/process_memory/process_memory_ext.c
+lib/process_memory/process_memory_ext.so
+
+ext/process_memory/process_memory_ext.bundle
+ext/process_memory/process_memory_ext.o
+ext/process_memory/process_memory_ext.so
+ext/process_memory/Makefile

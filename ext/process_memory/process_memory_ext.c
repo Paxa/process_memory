@@ -31,10 +31,12 @@ static VALUE rb_get_process_rss() {
       return INT2NUM(0);
     }
 
-    if (fscanf(file, "%*s%Ld", &rss) != 1) {
+    if (fscanf(file, "%*s%lld", &rss) != 1) {
       fclose(file);
       return INT2NUM(0);    /* Can't read? */
     }
+
+    //printf("rss %lld page size %ld res %lld \n", rss, sysconf(_SC_PAGESIZE), rss * sysconf(_SC_PAGESIZE));
 
     fclose(file);
     return INT2NUM(rss * sysconf(_SC_PAGESIZE));

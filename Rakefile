@@ -4,8 +4,8 @@ require 'rake/testtask'
 desc "Compile native extension"
 task :compile do
   %x{
-    cd ext/process_memory
-    ruby ./extconf.rb
+    cd ext/process_memory &&
+    ruby ./extconf.rb &&
     make
   }
 end

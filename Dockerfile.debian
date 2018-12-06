@@ -1,0 +1,15 @@
+FROM ruby:2.5.3-slim
+
+RUN apt-get update && apt-get install -y make gcc
+
+WORKDIR /opt/app
+
+ADD Gemfile Gemfile.lock process_memory.gemspec /opt/app/
+
+RUN bundle
+
+ADD . /opt/app/
+
+RUN rake compile
+
+RUN rake test
