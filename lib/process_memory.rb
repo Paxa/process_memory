@@ -1,4 +1,4 @@
-require_relative 'ext/process_memory/process_memory_ext'
+require_relative 'ext/process_memory_ext'
 
 module ProcessMemory
   extend self
